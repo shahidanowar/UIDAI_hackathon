@@ -21,11 +21,12 @@
 }
 
 .task-stats .stat-card {
-    background: var(--gradient-card);
-    border: 1px solid var(--color-border);
+    background: #FFFFFF;
+    border: 2px solid #000000;
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     text-align: center;
+    box-shadow: var(--shadow-sm);
 }
 
 .task-stats .stat-card .stat-value {
@@ -35,15 +36,15 @@
 }
 
 .task-stats .stat-card.pending .stat-value {
-    color: var(--color-warning);
+    color: #000000;
 }
 
 .task-stats .stat-card.in-progress .stat-value {
-    color: var(--color-info);
+    color: #000000;
 }
 
 .task-stats .stat-card.done .stat-value {
-    color: var(--color-success);
+    color: #000000;
 }
 
 .task-filters {
@@ -75,9 +76,9 @@
 .filter-btn {
     padding: var(--spacing-xs) var(--spacing-md);
     background: transparent;
-    border: 1px solid var(--color-border);
+    border: 2px solid #000000;
     border-radius: var(--radius-md);
-    color: var(--color-text-secondary);
+    color: #444444;
     font-size: var(--font-size-sm);
     cursor: pointer;
     transition: all var(--transition-base);
@@ -89,9 +90,9 @@
 }
 
 .filter-btn.active {
-    background: var(--gradient-primary);
-    border-color: var(--color-primary);
-    color: white;
+    background: #000000;
+    border-color: #000000;
+    color: #FFFFFF;
 }
 
 .task-list {
@@ -101,14 +102,16 @@
 }
 
 .task-card {
-    background: var(--gradient-card);
-    border: 1px solid var(--color-border);
+    background: #FFFFFF;
+    border: 2px solid #000000;
     border-radius: var(--radius-xl);
     padding: var(--spacing-lg);
     display: flex;
     align-items: flex-start;
     gap: var(--spacing-md);
     transition: all var(--transition-base);
+    color: var(--color-text-card-primary);
+    box-shadow: var(--shadow-md);
 }
 
 .task-card:hover {
@@ -143,12 +146,11 @@
 
 .task-title {
     font-weight: 600;
-    color: var(--color-text);
+    color: var(--color-text-card-primary);
 }
 
 .task-card.done .task-title {
-    text-decoration: line-through;
-    color: var(--color-text-muted);
+    color: var(--color-text-card-secondary);
 }
 
 .priority-badge {
@@ -157,26 +159,30 @@
     font-weight: 600;
     border-radius: var(--radius-sm);
     text-transform: uppercase;
+    background: #FFFFFF;
+    color: #000000;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
 }
 
 .priority-badge.critical {
-    background: rgba(220, 38, 38, 0.2);
-    color: var(--color-critical);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .priority-badge.high {
-    background: rgba(234, 88, 12, 0.2);
-    color: var(--color-high);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .priority-badge.medium {
-    background: rgba(217, 119, 6, 0.2);
-    color: var(--color-medium);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .priority-badge.low {
-    background: rgba(101, 163, 13, 0.2);
-    color: var(--color-low);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .task-description {
@@ -202,21 +208,25 @@
     padding: 2px var(--spacing-sm);
     font-size: var(--font-size-xs);
     border-radius: var(--radius-sm);
+    background: #FFFFFF;
+    color: #000000;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
 }
 
 .status-badge.pending {
-    background: rgba(245, 158, 11, 0.2);
-    color: var(--color-warning);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .status-badge.in_progress {
-    background: rgba(59, 130, 246, 0.2);
-    color: var(--color-info);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .status-badge.done {
-    background: rgba(16, 185, 129, 0.2);
-    color: var(--color-success);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .task-actions {
@@ -260,4 +270,94 @@
     .task-meta {
         flex-wrap: wrap;
     }
+}
+
+/* Animations & Interactivity */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.task-card {
+    animation: slideIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Custom Animated Checkbox */
+.task-checkbox input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #000000;
+    border-radius: var(--radius-sm);
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    background: #FFFFFF;
+}
+
+.task-checkbox input:checked {
+    background: #000000;
+    border-color: #000000;
+    transform: scale(1.05);
+}
+
+.task-checkbox input:checked::after {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: solid #FFFFFF;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Strikethrough Animation */
+.task-title {
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.task-card.done .task-title {
+    color: #999999;
+    text-decoration: none;
+    /* We use pseudo-element for animation */
+}
+
+.task-card.done .task-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    background: #000000;
+    animation: strike 0.3s ease-out forwards;
+    transform-origin: left;
+}
+
+@keyframes strike {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.task-card.status-updating {
+    pointer-events: none;
+    opacity: 0.8;
 }

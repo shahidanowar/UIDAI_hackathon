@@ -35,34 +35,37 @@
 }
 
 .stat-card {
-    background: var(--gradient-card);
-    border: 1px solid var(--color-border);
+    background: #FFFFFF;
+    border: 2px solid #000000;
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     text-align: center;
+    color: var(--color-text-card-primary);
+    box-shadow: var(--shadow-sm);
 }
 
 .stat-card .stat-value {
     display: block;
     font-size: var(--font-size-2xl);
     font-weight: 700;
+    color: var(--color-text-card-primary);
 }
 
 .stat-card .stat-label {
     font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
+    color: var(--color-text-card-secondary);
 }
 
 .stat-card.critical .stat-value {
-    color: var(--color-critical);
+    color: #000000;
 }
 
 .stat-card.high .stat-value {
-    color: var(--color-high);
+    color: #000000;
 }
 
 .stat-card.medium .stat-value {
-    color: var(--color-medium);
+    color: #000000;
 }
 
 .policies-grid {
@@ -72,12 +75,14 @@
 }
 
 .policy-card {
-    background: var(--gradient-card);
-    border: 1px solid var(--color-border);
+    background: #FFFFFF;
+    border: 2px solid #000000;
     border-radius: var(--radius-xl);
     padding: var(--spacing-lg);
     transition: all var(--transition-base);
     cursor: pointer;
+    color: var(--color-text-card-primary);
+    box-shadow: var(--shadow-md);
 }
 
 .policy-card:hover {
@@ -86,19 +91,19 @@
 }
 
 .policy-card.critical {
-    border-left: 4px solid var(--color-critical);
+    border-left: 3px solid #FFFFFF;
 }
 
 .policy-card.high {
-    border-left: 4px solid var(--color-high);
+    border-left: 3px solid #FFFFFF;
 }
 
 .policy-card.medium {
-    border-left: 4px solid var(--color-medium);
+    border-left: 3px solid #FFFFFF;
 }
 
 .policy-card.low {
-    border-left: 4px solid var(--color-low);
+    border-left: 3px solid #FFFFFF;
 }
 
 .policy-header {
@@ -119,26 +124,30 @@
     font-weight: 600;
     border-radius: var(--radius-sm);
     text-transform: uppercase;
+    background: #FFFFFF;
+    color: #000000;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px #000000;
 }
 
 .severity-badge.critical {
-    background: rgba(220, 38, 38, 0.2);
-    color: var(--color-critical);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .severity-badge.high {
-    background: rgba(234, 88, 12, 0.2);
-    color: var(--color-high);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .severity-badge.medium {
-    background: rgba(217, 119, 6, 0.2);
-    color: var(--color-medium);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .severity-badge.low {
-    background: rgba(101, 163, 13, 0.2);
-    color: var(--color-low);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .policy-reason {

@@ -5,11 +5,15 @@
 
 // GeoJSON URL for India states
 const GEOJSON_URL = 'https://raw.githubusercontent.com/geohacker/india/master/state/india_state.geojson';
+const DISTRICT_GEOJSON_URL = 'https://raw.githubusercontent.com/geohacker/india/master/district/india_district.geojson';
 
 let map;
 let statesLayer;
+let districtsLayer;
+let allDistrictsGeoJSON = null;
 let statesData = [];
 let districtChart;
+let isStateZoomed = false;
 
 // Initialize dashboard
 document.addEventListener('DOMContentLoaded', async () => {
@@ -27,6 +31,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('closePanelBtn')?.addEventListener('click', () => {
         hideStatePanel();
     });
+
+    // Back to India button
+    document.getElementById('backToIndiaBtn')?.addEventListener('click', resetMapView);
 });
 
 // Load summary data
@@ -86,10 +93,10 @@ function initMap() {
         attributionControl: false
     });
 
-    // Dark tile layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    // Tile layer removed to show only India map
+    // L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    //     attribution: '&copy; OpenStreetMap contributors'
+    // }).addTo(map);
 
     // Load GeoJSON
     loadGeoJSON();
@@ -166,6 +173,8 @@ function onEachState(feature, layer) {
 }
 
 function highlightFeature(e) {
+    if (isStateZoomed) return; // Disable hover effects when zoomed in
+
     const layer = e.target;
     layer.setStyle({
         weight: 2,
@@ -176,6 +185,7 @@ function highlightFeature(e) {
 }
 
 function resetHighlight(e) {
+    if (isStateZoomed) return; // Disable hover effects when zoomed in
     statesLayer.resetStyle(e.target);
 }
 
@@ -187,6 +197,35 @@ function updateMapColors() {
 
 // Select state and show details
 async function selectState(stateName) {
+    if (isStateZoomed && isStateZoomed !== stateName) return; // Prevent clicking other hidden states if any
+    isStateZoomed = stateName;
+
+    // 1. Zoom to state and isolate
+    let targetLayer = null;
+    statesLayer.eachLayer(layer => {
+        const name = layer.feature.properties.NAME_1 || layer.feature.properties.name;
+        if (name === stateName) {
+            targetLayer = layer;
+            // Highlight selected
+            layer.setStyle({ fillOpacity: 0.9, weight: 3, opacity: 1 });
+        } else {
+            // Fade out others
+            layer.setStyle({ fillOpacity: 0, opacity: 0 });
+        }
+    });
+
+    if (targetLayer) {
+        map.flyToBounds(targetLayer.getBounds(), {
+            padding: [50, 50],
+            duration: 1.5,
+            easeLinearity: 0.25
+        });
+        document.getElementById('backToIndiaBtn').style.display = 'block';
+
+        // Load districts for this state
+        loadStateDistricts(stateName);
+    }
+
     try {
         const response = await fetch(`/api/dashboard/state?state=${encodeURIComponent(stateName)}`);
         const result = await response.json();
@@ -197,6 +236,25 @@ async function selectState(stateName) {
     } catch (error) {
         console.error('Error loading state data:', error);
     }
+}
+
+function resetMapView() {
+    isStateZoomed = false;
+    clearDistricts();
+
+    // Reset map view to India
+    map.flyTo([22.5937, 78.9629], 5, {
+        duration: 1.5
+    });
+
+    // Restore all states visibility
+    statesLayer.eachLayer(layer => {
+        statesLayer.resetStyle(layer);
+    });
+
+    // Hide UI elements
+    document.getElementById('backToIndiaBtn').style.display = 'none';
+    hideStatePanel();
 }
 
 function showStatePanel(data) {
@@ -280,4 +338,54 @@ function formatNumber(num) {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
     if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
     return num?.toLocaleString() || '--';
+}
+
+async function fetchDistricts() {
+    if (allDistrictsGeoJSON) return allDistrictsGeoJSON;
+    try {
+        const response = await fetch(DISTRICT_GEOJSON_URL);
+        allDistrictsGeoJSON = await response.json();
+        return allDistrictsGeoJSON;
+    } catch (error) {
+        console.error('Error loading District GeoJSON:', error);
+        return null;
+    }
+}
+
+async function loadStateDistricts(stateName) {
+    const geojson = await fetchDistricts();
+    if (!geojson) return;
+
+    // Filter features for the selected state
+    // Note: GeoHacker usually uses NAME_1 for state
+    const stateFeatures = geojson.features.filter(f =>
+        (f.properties.NAME_1 && f.properties.NAME_1.toLowerCase() === stateName.toLowerCase()) ||
+        (f.properties.st_nm && f.properties.st_nm.toLowerCase() === stateName.toLowerCase()) // Common alternative
+    );
+
+    if (districtsLayer) {
+        map.removeLayer(districtsLayer);
+    }
+
+    districtsLayer = L.geoJSON({ type: 'FeatureCollection', features: stateFeatures }, {
+        style: {
+            fillColor: 'transparent',
+            weight: 1,
+            opacity: 1,
+            color: '#000000', // Black borders for districts
+            dashArray: '3',
+            fillOpacity: 0
+        },
+        onEachFeature: (feature, layer) => {
+            const districtName = feature.properties.NAME_2 || feature.properties.district;
+            layer.bindTooltip(districtName, { className: 'district-tooltip', direction: 'center', permanent: false });
+        }
+    }).addTo(map);
+}
+
+function clearDistricts() {
+    if (districtsLayer) {
+        map.removeLayer(districtsLayer);
+        districtsLayer = null;
+    }
 }

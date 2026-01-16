@@ -3,56 +3,61 @@
    Design System & Global Styles
    ==================================== */
 
-/* CSS Variables - Design Tokens */
+/* CSS Variables - Monochrome Design System */
 :root {
-    /* Colors - Indian Government Theme */
-    --color-primary: #FF9933;        /* Saffron - Indian flag */
-    --color-primary-dark: #E68A00;
-    --color-secondary: #138808;       /* Green - Indian flag */
-    --color-secondary-dark: #0D5D05;
-    --color-accent: #000080;          /* Navy Blue - Ashoka Chakra */
-    
-    /* Semantic Colors */
-    --color-success: #10B981;
-    --color-warning: #F59E0B;
-    --color-danger: #EF4444;
-    --color-info: #3B82F6;
-    
-    /* Severity Colors */
-    --color-critical: #DC2626;
-    --color-high: #EA580C;
-    --color-medium: #D97706;
-    --color-low: #65A30D;
-    
-    /* Neutrals */
-    --color-bg: #0F172A;
-    --color-bg-secondary: #1E293B;
-    --color-bg-card: #1E293B;
-    --color-bg-hover: #334155;
-    --color-border: #334155;
-    --color-border-light: #475569;
-    
-    /* Text */
-    --color-text: #F8FAFC;
-    --color-text-secondary: #94A3B8;
-    --color-text-muted: #64748B;
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #FF9933 0%, #FF6600 100%);
-    --gradient-secondary: linear-gradient(135deg, #138808 0%, #0D5D05 100%);
-    --gradient-accent: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
-    --gradient-card: linear-gradient(145deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-    --gradient-glass: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-    
-    /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
-    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.4);
-    --shadow-glow: 0 0 20px rgba(255, 153, 51, 0.3);
-    
-    /* Typography */
-    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Monochrome Palette - Black & White Only */
+    --color-primary: #000000;
+    --color-primary-dark: #000000;
+    --color-secondary: #000000;
+    --color-secondary-dark: #000000;
+    --color-accent: #000000;
+
+    /* All semantic colors mapped to black/white/gray */
+    --color-success: #000000;
+    --color-warning: #000000;
+    --color-danger: #000000;
+    --color-info: #000000;
+
+    /* Severity - all black */
+    --color-critical: #000000;
+    --color-high: #000000;
+    --color-medium: #000000;
+    --color-low: #000000;
+
+    /* Backgrounds - Clean white */
+    --color-bg: #FFFFFF;
+    --color-bg-secondary: #FFFFFF;
+    --color-bg-card: #FFFFFF;
+    --color-bg-hover: #F5F5F5;
+    --color-border: #000000;
+    --color-border-light: #E0E0E0;
+
+    /* Text - Black on white, white on black */
+    --color-text: #000000;
+    --color-text-secondary: #666666;
+    --color-text-muted: #999999;
+
+    /* Card text (white on black cards) */
+    --color-text-card-primary: #000000;
+    --color-text-card-secondary: #444444;
+
+    /* No gradients - solid colors only */
+    --gradient-primary: #000000;
+    --gradient-secondary: #000000;
+    --gradient-accent: #000000;
+    --gradient-card: #FFFFFF;
+    --gradient-glass: #FFFFFF;
+    --gradient-nav: #FFFFFF;
+
+    /* Bold Shadows - Neo Brutalist */
+    --shadow-sm: 2px 2px 0px #000000;
+    --shadow-md: 4px 4px 0px #000000;
+    --shadow-lg: 6px 6px 0px #000000;
+    --shadow-xl: 8px 8px 0px #000000;
+    --shadow-glow: none;
+
+    /* Typography - Professional */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-base: 1rem;
@@ -61,30 +66,32 @@
     --font-size-2xl: 1.5rem;
     --font-size-3xl: 1.875rem;
     --font-size-4xl: 2.25rem;
-    
-    /* Spacing */
+
+    /* Spacing - Clean grid */
     --spacing-xs: 0.25rem;
     --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
     --spacing-lg: 1.5rem;
     --spacing-xl: 2rem;
     --spacing-2xl: 3rem;
-    
-    /* Border Radius */
-    --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --radius-xl: 1rem;
+
+    /* Sharp corners - minimal radius */
+    --radius-sm: 2px;
+    --radius-md: 3px;
+    --radius-lg: 4px;
+    --radius-xl: 6px;
     --radius-full: 9999px;
-    
-    /* Transitions */
-    --transition-fast: 150ms ease;
-    --transition-base: 200ms ease;
-    --transition-slow: 300ms ease;
+
+    /* Snappy transitions */
+    --transition-fast: 100ms ease;
+    --transition-base: 150ms ease;
+    --transition-slow: 200ms ease;
 }
 
 /* Reset & Base */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -100,7 +107,7 @@ body {
     font-size: var(--font-size-base);
     line-height: 1.6;
     color: var(--color-text);
-    background-color: var(--color-bg);
+    background-color: var(--color-bg-secondary);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -112,9 +119,10 @@ body {
 .navbar {
     position: sticky;
     top: 0;
-    z-index: 1000;
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(15, 23, 42, 0.95) 100%);
+    z-index: 2000;
+    background: var(--gradient-nav);
     backdrop-filter: blur(12px);
+
     border-bottom: 1px solid var(--color-border);
     padding: var(--spacing-md) 0;
 }
@@ -138,12 +146,12 @@ body {
 .brand-icon {
     width: 40px;
     height: 40px;
-    background: var(--gradient-primary);
+    background: #000000;
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow-glow);
+    box-shadow: none;
 }
 
 .brand-icon svg {
@@ -201,8 +209,9 @@ body {
 }
 
 .nav-link.active {
-    color: var(--color-primary);
-    background: rgba(255, 153, 51, 0.1);
+    color: #000000;
+    background: #F5F5F5;
+    font-weight: 600;
 }
 
 .nav-status {
@@ -218,17 +227,11 @@ body {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--color-success);
-    animation: pulse 2s infinite;
+    background: #000000;
 }
 
 .status-indicator.online {
-    background: var(--color-success);
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    background: #000000;
 }
 
 .status-text {
@@ -296,24 +299,25 @@ body {
 }
 
 .btn-primary {
-    background: var(--gradient-primary);
-    color: white;
-    box-shadow: var(--shadow-md);
+    background: #000000;
+    color: #FFFFFF;
+    border: 2px solid #000000;
 }
 
 .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    background: #FFFFFF;
+    color: #000000;
 }
 
 .btn-secondary {
-    background: var(--color-bg-hover);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
+    background: #FFFFFF;
+    color: #000000;
+    border: 2px solid #000000;
 }
 
 .btn-secondary:hover {
-    background: var(--color-border);
+    background: #000000;
+    color: #FFFFFF;
 }
 
 .btn-lg {
@@ -330,11 +334,21 @@ body {
    Cards
    ==================================== */
 .card {
-    background: var(--gradient-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     box-shadow: var(--shadow-md);
+    color: var(--color-text-card-primary);
+}
+
+.card .card-title {
+    color: var(--color-text-card-primary);
+}
+
+.card p,
+.card span {
+    color: var(--color-text-card-secondary);
 }
 
 .card-header {
@@ -393,7 +407,8 @@ body {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.2);
+    box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.25);
+    background-color: #FFFFFF;
 }
 
 .form-group input::placeholder,
@@ -526,7 +541,9 @@ body {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .empty-state svg {
@@ -550,19 +567,53 @@ body {
 /* ====================================
    Utility Classes
    ==================================== */
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-.text-muted { color: var(--color-text-muted); }
-.text-success { color: var(--color-success); }
-.text-warning { color: var(--color-warning); }
-.text-danger { color: var(--color-danger); }
+.text-center {
+    text-align: center;
+}
 
-.mt-sm { margin-top: var(--spacing-sm); }
-.mt-md { margin-top: var(--spacing-md); }
-.mt-lg { margin-top: var(--spacing-lg); }
-.mb-sm { margin-bottom: var(--spacing-sm); }
-.mb-md { margin-bottom: var(--spacing-md); }
-.mb-lg { margin-bottom: var(--spacing-lg); }
+.text-right {
+    text-align: right;
+}
+
+.text-muted {
+    color: var(--color-text-muted);
+}
+
+.text-success {
+    color: var(--color-success);
+}
+
+.text-warning {
+    color: var(--color-warning);
+}
+
+.text-danger {
+    color: var(--color-danger);
+}
+
+.mt-sm {
+    margin-top: var(--spacing-sm);
+}
+
+.mt-md {
+    margin-top: var(--spacing-md);
+}
+
+.mt-lg {
+    margin-top: var(--spacing-lg);
+}
+
+.mb-sm {
+    margin-bottom: var(--spacing-sm);
+}
+
+.mb-md {
+    margin-bottom: var(--spacing-md);
+}
+
+.mb-lg {
+    margin-bottom: var(--spacing-lg);
+}
 
 /* ====================================
    Responsive
@@ -572,22 +623,22 @@ body {
         flex-wrap: wrap;
         gap: var(--spacing-md);
     }
-    
+
     .nav-links {
         order: 3;
         width: 100%;
         justify-content: center;
         flex-wrap: wrap;
     }
-    
+
     .nav-status {
         display: none;
     }
-    
+
     .main-content {
         padding: var(--spacing-md);
     }
-    
+
     .form-row {
         grid-template-columns: 1fr;
     }

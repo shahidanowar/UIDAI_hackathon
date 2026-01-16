@@ -214,14 +214,45 @@ async function handleSubmit(e) {
 }
 
 async function toggleStatus(id, done) {
+    // Optimistic UI Update
+    const checkbox = document.querySelector(`input[onchange="toggleStatus('${id}', this.checked)"]`);
+    const card = checkbox?.closest('.task-card');
+
+    if (card) {
+        card.classList.add('status-updating');
+        if (done) {
+            card.classList.add('done');
+            card.classList.remove('pending', 'in_progress');
+            // Update status badge text immediately
+            const badge = card.querySelector('.status-badge');
+            if (badge) {
+                badge.textContent = 'DONE';
+                badge.className = 'status-badge done';
+            }
+        } else {
+            card.classList.remove('done');
+            card.classList.add('pending'); // Default back to pending
+            const badge = card.querySelector('.status-badge');
+            if (badge) {
+                badge.textContent = 'PENDING';
+                badge.className = 'status-badge pending';
+            }
+        }
+    }
+
     try {
         await fetch(`/todo/api/tasks/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status: done ? 'done' : 'pending' })
         });
-        await loadTasks();
+
+        // Wait a bit for animation to finish before consistent reload
+        setTimeout(loadTasks, 500);
+
     } catch (error) {
         console.error('Error updating status:', error);
+        // Revert on error (reload tasks to get true state)
+        loadTasks();
     }
 }

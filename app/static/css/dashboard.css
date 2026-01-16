@@ -55,15 +55,17 @@
 
 .summary-card {
     position: relative;
-    background: var(--gradient-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     display: flex;
     align-items: center;
     gap: var(--spacing-lg);
     overflow: hidden;
     transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text-card-primary);
 }
 
 .summary-card::before {
@@ -72,20 +74,20 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: var(--gradient-primary);
+    height: 2px;
+    background: #FFFFFF;
 }
 
 .summary-card.anomalies::before {
-    background: var(--gradient-accent);
+    background: #FFFFFF;
 }
 
 .summary-card.verified::before {
-    background: linear-gradient(90deg, var(--color-success), #34D399);
+    background: #FFFFFF;
 }
 
 .summary-card.pending::before {
-    background: linear-gradient(90deg, var(--color-warning), #FBBF24);
+    background: #FFFFFF;
 }
 
 .summary-card:hover {
@@ -96,42 +98,47 @@
 .card-icon {
     width: 56px;
     height: 56px;
-    background: rgba(255, 153, 51, 0.1);
+    background: #FFFFFF;
+    border: 2px solid #000000;
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
 }
 
 .card-icon svg {
     width: 28px;
     height: 28px;
-    color: var(--color-primary);
+    color: #000000;
 }
 
 .card-icon.warning svg {
-    color: var(--color-warning);
+    color: #000000;
 }
 
 .card-icon.warning {
-    background: rgba(245, 158, 11, 0.1);
+    background: #FFFFFF;
+    border-color: #000000;
 }
 
 .card-icon.success svg {
-    color: var(--color-success);
+    color: #000000;
 }
 
 .card-icon.success {
-    background: rgba(16, 185, 129, 0.1);
+    background: #FFFFFF;
+    border-color: #000000;
 }
 
 .card-icon.info svg {
-    color: var(--color-info);
+    color: #000000;
 }
 
 .card-icon.info {
-    background: rgba(59, 130, 246, 0.1);
+    background: #FFFFFF;
+    border-color: #000000;
 }
 
 .card-content {
@@ -142,13 +149,13 @@
     display: block;
     font-size: var(--font-size-2xl);
     font-weight: 700;
-    color: var(--color-text);
+    color: var(--color-text-card-primary);
 }
 
 .card-label {
     display: block;
     font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
+    color: var(--color-text-card-secondary);
     margin-top: var(--spacing-xs);
 }
 
@@ -156,14 +163,14 @@
     display: flex;
     align-items: center;
     padding: var(--spacing-xs) var(--spacing-sm);
-    background: rgba(16, 185, 129, 0.1);
+    background: transparent;
     border-radius: var(--radius-sm);
 }
 
 .card-trend svg {
     width: 16px;
     height: 16px;
-    color: var(--color-success);
+    color: #FFFFFF;
 }
 
 .card-badge {
@@ -171,11 +178,13 @@
     top: var(--spacing-md);
     right: var(--spacing-md);
     padding: var(--spacing-xs) var(--spacing-sm);
-    background: rgba(59, 130, 246, 0.2);
-    color: var(--color-info);
+    background: #FFFFFF;
+    color: #000000;
     font-size: var(--font-size-sm);
     font-weight: 600;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-sm);
+    border: 2px solid #000000;
+    box-shadow: var(--shadow-sm);
 }
 
 .card-progress {
@@ -183,13 +192,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: var(--color-border);
+    height: 2px;
+    background: #333333;
 }
 
 .progress-bar {
     height: 100%;
-    background: var(--color-success);
+    background: #FFFFFF;
     width: 0%;
     transition: width var(--transition-slow);
 }
@@ -203,6 +212,7 @@
 
 /* Map Section */
 .map-section {
+    position: relative;
     background: var(--gradient-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);

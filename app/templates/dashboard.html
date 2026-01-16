@@ -12,7 +12,7 @@
     <div class="dashboard-header">
         <div class="header-content">
             <h1 class="page-title">
-                <span class="title-icon">📊</span>
+                <!-- <span class="title-icon"></span> -->
                 Aadhaar Data Intelligence
             </h1>
             <p class="page-subtitle">Real-time monitoring and validation of Aadhaar records across India</p>
@@ -118,6 +118,10 @@
                     <span class="legend-item high"><span class="legend-dot"></span>High Risk</span>
                 </div>
             </div>
+            <button class="btn btn-sm" id="backToIndiaBtn"
+                style="display: none; position: absolute; top: 90px; right: 30px; z-index: 1000; background: #FFFFFF; border: 2px solid #000000; box-shadow: 2px 2px 0px #000000; font-weight: 600;">
+                ← Back to India
+            </button>
             <div id="indiaMap" class="india-map"></div>
         </div>
 
