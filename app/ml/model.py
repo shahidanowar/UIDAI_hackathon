@@ -1,11 +1,9 @@
 """
 ML Model Service
-Handles model loading and prediction with fallback to dummy model.
+Handles model loading and prediction with fallback to rule-based model.
 """
 
 import os
-import numpy as np
-import joblib
 from typing import Dict, Any, Optional
 
 
@@ -18,18 +16,10 @@ class RiskPredictor:
         self._load_model()
     
     def _load_model(self):
-        """Load the trained model or create a dummy one."""
-        if self.model_path and os.path.exists(self.model_path):
-            try:
-                self.model = joblib.load(self.model_path)
-                print("Loaded trained model from disk")
-            except Exception as e:
-                print(f"Error loading model: {e}")
-                self.model = None
-        
-        if self.model is None:
-            # Create placeholder (use dummy prediction)
-            print("Using rule-based fallback predictor")
+        """Load the trained model or use rule-based fallback."""
+        # Using rule-based prediction for Vercel deployment
+        # (sklearn/joblib not available due to size constraints)
+        print("Using rule-based fallback predictor")
     
     def predict(self, features: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -67,7 +57,7 @@ class RiskPredictor:
         )
         
         # Normalize to 0-1 range
-        score = min(score * 5, 1.0)  # Multiply by 5 to scale rates
+        score = min(score * 5, 1.0)
         
         # Determine risk category
         if score >= 0.7:
@@ -125,7 +115,7 @@ class RiskPredictor:
             "recommended_action": action,
             "top_features": contributions[:3],
             "state": features.get('state', 'Unknown'),
-            "model_type": "rule_based" if self.model is None else "ml_model"
+            "model_type": "rule_based"
         }
 
 
